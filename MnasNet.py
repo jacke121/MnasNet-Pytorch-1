@@ -147,7 +147,7 @@ class MnasNet(nn.Module):
 
 
 
-if __name__=='__main__':
+#if __name__=='__main__':
     net = MnasNet(3,1000)
     input = torch.randn((1,3,224,224))
     output = net(input)
@@ -162,3 +162,14 @@ if __name__=='__main__':
             l *= j
         num += l
     print('All Parameters:{}'.format(num))
+    
+    from torch.autograd import Variable
+# 352*352 need 500ms
+    if __name__ == '__main__':
+    net = MnasNet(3, 2)
+    x_image = Variable(torch.randn(1, 3, 352, 352))
+
+    for i in range(3):
+        time1 = datetime.datetime.now()
+        out3 = net(x_image)
+        print("time", (datetime.datetime.now() - time1).microseconds)
